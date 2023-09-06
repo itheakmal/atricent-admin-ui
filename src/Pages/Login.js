@@ -87,8 +87,8 @@ export const Login = () => {
                         helperText={errors.password} />
                     <Button type='submit' variant='contained' color='primary' style={marginTop}
                         onClick={(e) => handleLogin(e)}>Login</Button>
-                    <Button type='button' variant='outlined' color='primary' style={spacing}
-                        onClick={(e) => history('/register')}>Don't have an account, Signup</Button>
+                    {/* <Button type='button' variant='outlined' color='primary' style={spacing} */}
+                        {/* onClick={(e) => history('/register')}>Don't have an account, Signup</Button> */}
                     {serverError && <p style={errorStyle}>{serverError}</p>}
                 </form>
             </Paper>

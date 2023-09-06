@@ -25,8 +25,8 @@ export const ListingOrders = () => {
     useEffect(() => {
         async function fetchOrders() {
             const _orders = await getRequest('orders')
-            const onlyOrder = _orders.filter(item => ['recieved', 'shiped', 'confirmed', 'delivered'].includes(item.status))
-            const errorOrder = _orders.filter(item => !['recieved', 'shiped', 'confirmed', 'delivered'].includes(item.status))
+            const onlyOrder = _orders.filter(item => ['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
+            const errorOrder = _orders.filter(item => !['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
             setCars(onlyOrder)
             setErrorOrders(errorOrder)
         }
@@ -34,8 +34,8 @@ export const ListingOrders = () => {
     }, [])
     const refreshOrders = async () => {
         const _orders = await getRequest('orders');
-        const onlyOrder = _orders.filter(item => ['recieved', 'shiped', 'confirmed', 'delivered'].includes(item.status))
-        const errorOrder = _orders.filter(item => !['recieved', 'shiped', 'confirmed', 'delivered'].includes(item.status))
+        const onlyOrder = _orders.filter(item => ['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
+        const errorOrder = _orders.filter(item => !['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
         setCars(onlyOrder)
         setErrorOrders(errorOrder)
     };
