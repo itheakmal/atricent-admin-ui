@@ -12,14 +12,18 @@ import { useNavigate } from 'react-router-dom';
 import { getAddress, getBrandNames } from '../../Services/Utility';
 import PopUp from '../../Components/PopUp';
 import ExpandableTable from '../../Components/ExpandableTable';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 
 export const ListingOrders = () => {
     const navigate = useNavigate();
     const [cars, setCars] = useState([])
     const [errorOrders, setErrorOrders] = useState([])
+    const [realOrders, setRealOrders] = useState([])
     const [row, setRow] = useState({})
-    const [openPopUp, setOpenPopUp] = React.useState(false);
+    const [openError, setOpenError] = useState(false);
+    const [openPopUp, setOpenPopUp] = useState(false);
     const titleStyle = { padding: '20px', width: '100%', margin: "0" }
 
     useEffect(() => {
@@ -28,6 +32,7 @@ export const ListingOrders = () => {
             const onlyOrder = _orders.filter(item => ['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
             const errorOrder = _orders.filter(item => !['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
             setCars(onlyOrder)
+            setRealOrders(onlyOrder)
             setErrorOrders(errorOrder)
         }
         fetchOrders()
@@ -37,6 +42,7 @@ export const ListingOrders = () => {
         const onlyOrder = _orders.filter(item => ['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
         const errorOrder = _orders.filter(item => !['received', 'shiped', 'confirmed', 'delivered'].includes(item.status))
         setCars(onlyOrder)
+        setRealOrders(onlyOrder)
         setErrorOrders(errorOrder)
     };
     // data to pass to table component
@@ -57,7 +63,13 @@ export const ListingOrders = () => {
     };
     const handleAddNew = (arg) => console.log(arg)
     const filterError = () => {
-        setCars(errorOrders)
+        if (openError) {
+            setCars(realOrders)
+            setOpenError(false)
+        } else {
+            setCars(errorOrders)
+            setOpenError(true)
+        }
     }
     const columns = [
         { field: 'uuid', headerName: 'uuid', width: 200 },
@@ -130,7 +142,7 @@ export const ListingOrders = () => {
                             onClick={() => filterError()}
                             sx={{ boxShadow: "0px 0px 10px rgba(37, 133, 202, 0.2)" }}
                         >
-                            <AddIcon />
+                            {openError ? <FormatListBulletedIcon /> : <ErrorOutlineIcon />}
                         </IconButton>
                     </Tooltip>
                 </Box>
