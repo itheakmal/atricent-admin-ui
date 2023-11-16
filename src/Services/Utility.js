@@ -20,10 +20,11 @@ export const getAddress = (address) => {
 }
 export const getAddressFormated = (address) => {
     const addressd = {
+        zip: address.zipCode,
         street: address.address,
         city: address.city,
         state: address.state,
-        country: address.country
+        country: address.country,
     }
     console.log('address', JSON.stringify(Object.entries(addressd)))
     return addressd
