@@ -18,6 +18,16 @@ export const getAddress = (address) => {
     const addressd = address.address +' '+ address.city +' '+ address.state +' '+ address.country
     return addressd
 }
+export const getAddressFormated = (address) => {
+    const addressd = {
+        street: address.address,
+        city: address.city,
+        state: address.state,
+        country: address.country
+    }
+    console.log('address', JSON.stringify(Object.entries(addressd)))
+    return addressd
+}
 
 export const getProducts = (order) => {
     console.log('order', order)

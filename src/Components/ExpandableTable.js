@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { getAddress, getBrandNames, getPrice } from '../Services/Utility';
+import { getAddress, getAddressFormated, getBrandNames, getPrice } from '../Services/Utility';
 import { getRequest } from '../Services/networkRequests';
 
 function Row(props) {
@@ -71,7 +71,11 @@ function Row(props) {
                                     {order.hasOwnProperty("id") && (
                                         <TableRow key={order.id}>
                                             <TableCell component="th" scope="row">
-                                                {getAddress(order.address)}
+                                                <>
+                                                    {Object.entries(getAddressFormated(order.address)).map(key => (
+                                                        <div>{key[0].charAt(0).toUpperCase() + key[0].slice(1)}: {key[1]}</div>
+                                                    ))}
+                                                </>
                                             </TableCell>
                                             <TableCell>
                                                 {order.prods.map(orderItem => (
@@ -84,7 +88,7 @@ function Row(props) {
                                                         <div>Products:</div>
                                                         <div>
                                                             {orderItem.variations.map(varItem => (
-                                                                varItem.title
+                                                                <a href={varItem?.link} target='_blank'>{varItem?.title}</a>
                                                             ))}
                                                         </div>
                                                         <p> </p>
